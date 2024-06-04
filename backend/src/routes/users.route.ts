@@ -2,6 +2,18 @@ import { Hono, Context } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { sign } from "hono/jwt";
+import { z } from "zod";
+
+const signupSchema = z.object({
+  name: z.string().min(3).optional(),
+  email: z.string().email(),
+  password: z.string().min(6),
+});
+
+const signinSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
 
 const app = new Hono<{
   Bindings: {
@@ -19,6 +31,15 @@ function getPrismaClient(c: Context) {
 app.post("/signup", async (c) => {
   const prisma = getPrismaClient(c);
   const body = await c.req.json();
+  const parsedBody = signupSchema.safeParse(body);
+
+  if (!parsedBody.success) {
+    c.status(411);
+    return c.json({
+      success: false,
+      message: "Invalid Inputs (Zod Validations Failed)",
+    });
+  }
   try {
     const user = await prisma.user.create({
       data: {
@@ -48,6 +69,15 @@ app.post("/signup", async (c) => {
 app.post("/signin", async (c) => {
   const prisma = getPrismaClient(c);
   const body = await c.req.json();
+  const parsedBody = signinSchema.safeParse(body);
+
+  if (!parsedBody.success) {
+    c.status(411);
+    return c.json({
+      success: false,
+      message: "Invalid Inputs (Zod Validations Failed)",
+    });
+  }
 
   try {
     const user = await prisma.user.findUnique({
