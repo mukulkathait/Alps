@@ -2,18 +2,7 @@ import { Hono, Context } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { sign } from "hono/jwt";
-import { z } from "zod";
-
-const signupSchema = z.object({
-  name: z.string().min(3).optional(),
-  email: z.string().email(),
-  password: z.string().min(6),
-});
-
-const signinSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
-});
+import { signupSchema, signinSchema } from "@mukulkathait/medium-common";
 
 const app = new Hono<{
   Bindings: {

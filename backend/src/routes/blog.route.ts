@@ -1,24 +1,12 @@
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Context, Hono, Next } from "hono";
-import { bodyLimit } from "hono/body-limit";
 import { verify } from "hono/jwt";
-import { jwt } from "hono/jwt";
 import type { JwtVariables } from "hono/jwt";
-import { z } from "zod";
-
-const createPostSchema = z.object({
-  title: z.string(),
-  content: z.string(),
-  published: z.boolean().optional(),
-});
-
-const updatePostSchema = z.object({
-  title: z.string().optional(),
-  content: z.string().optional(),
-  published: z.boolean().optional(),
-  blogId: z.string(),
-});
+import {
+  createPostSchema,
+  updatePostSchema,
+} from "@mukulkathait/medium-common";
 
 type Variables = JwtVariables;
 
@@ -178,7 +166,7 @@ app.put("/", authMiddleware, async (c) => {
     await prisma.post.update({
       where: {
         authorId: payload.id,
-        id: parsedBody.data.blogId,
+        id: parsedBody.data.id,
       },
       data: {
         title: parsedBody.data.title,
