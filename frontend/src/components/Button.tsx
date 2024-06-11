@@ -7,7 +7,7 @@ interface ButtonProps {
 function Button({ name, className, type, ...props }: ButtonProps) {
   return (
     <button
-      className={`bg-black text-white px-4 py-2 w-fit font-normal text-center border border-black rounded-3xl ${className}`}
+      className={`text-nowrap py-2.5 w-full font-normal text-center border border-black rounded-lg ${className}`}
       {...props}
       type={type}
     >

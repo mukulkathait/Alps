@@ -13,7 +13,7 @@ function Main({ className = "" }) {
       <Button
         name="Start reading"
         type="submit"
-        className="px-12 font-semibold"
+        className="bg-black text-white px-12 font-semibold"
       />
     </div>
   );
