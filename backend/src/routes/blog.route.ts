@@ -1,8 +1,9 @@
-import { PrismaClient } from "@prisma/client/edge";
+import { Prisma, PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Context, Hono, Next } from "hono";
 import { verify } from "hono/jwt";
 import type { JwtVariables } from "hono/jwt";
+import { v2 as cloudinary } from "cloudinary";
 import {
   createPostSchema,
   updatePostSchema,
@@ -229,5 +230,19 @@ app.get("/", async (c) => {
     });
   }
 });
+
+app.delete("/allBlogs", async (c) => {
+  const prisma = getPrismaClient(c);
+  try {
+    await prisma.post.deleteMany();
+    return c.json({
+      success: true,
+    });
+  } catch (error: any) {
+    return c.text("Error");
+  }
+});
+
+app.post("/upload", async (c) => {});
 
 export default app;

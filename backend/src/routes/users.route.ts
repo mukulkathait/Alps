@@ -101,4 +101,32 @@ app.post("/signin", async (c) => {
   }
 });
 
+app.get("/allusers", async (c) => {
+  const prisma = getPrismaClient(c);
+  try {
+    const users = await prisma.user.findMany();
+    return c.json({
+      users,
+    });
+  } catch (error: any) {
+    return c.text(error);
+  }
+});
+
+app.delete("/allusers", async (c) => {
+  const prisma = getPrismaClient(c);
+  try {
+    const users = await prisma.user.deleteMany();
+    return c.json({
+      users,
+      success: true,
+      message: "All Users Deleted",
+    });
+  } catch (error: any) {
+    return c.json({
+      error,
+    });
+  }
+});
+
 export default app;
