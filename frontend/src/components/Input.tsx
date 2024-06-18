@@ -12,6 +12,7 @@ export const Input = ({
   label,
   placeholder,
   type,
+  onChange,
   ...props
 }: InputComponentsType) => {
   const id = useId();

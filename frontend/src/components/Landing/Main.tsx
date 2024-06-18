@@ -1,5 +1,4 @@
-import React from "react";
-import Button from "../Button";
+import { Link } from "react-router-dom";
 
 function Main({ className = "" }) {
   return (
@@ -10,11 +9,12 @@ function Main({ className = "" }) {
       <div className="text-[24px] leading-6 font-semibold">
         Discover stories, thinking, and expertise from writers on any topic.
       </div>
-      <Button
-        name="Start reading"
-        type="submit"
-        className="bg-black text-white px-12 font-semibold"
-      />
+      <Link
+        to="/signup"
+        className="bg-black text-white px-12 font-semibold text-nowrap py-2.5 w-full text-center border border-black rounded-lg"
+      >
+        Start reading
+      </Link>
     </div>
   );
 }

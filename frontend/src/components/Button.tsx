@@ -10,6 +10,7 @@ function Button({ name, className, type, ...props }: ButtonProps) {
       className={`text-nowrap py-2.5 w-full font-normal text-center border border-black rounded-lg ${className}`}
       {...props}
       type={type}
+      onClick={() => {}}
     >
       {name}
     </button>

@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Input } from "./Input";
+import { Input } from "../Input";
 import { SignupInput } from "@mukulkathait/medium-common";
 import React, { useState } from "react";
-import axios, { AxiosError } from "axios";
-import { BACKEND_URL } from "../config";
+import axios from "axios";
+import { BACKEND_URL } from "../../config";
 
 export const SignupComponent = () => {
   const navigate = useNavigate();

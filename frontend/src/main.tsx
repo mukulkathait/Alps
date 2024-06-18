@@ -6,6 +6,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Signup } from "./pages/Signup.tsx";
 import { Signin } from "./pages/Signin.tsx";
 import { Homepage } from "./pages/Homepage.tsx";
+import { Blog } from "./pages/Blog.tsx";
+import { Top } from "./Top.tsx";
+import { Profile } from "./pages/Profile.tsx";
+import { TextEditor } from "./components/publish/TextEditor.tsx";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +26,25 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Homepage />,
+    element: <Top />,
+    children: [
+      {
+        path: "/home",
+        element: <Homepage />,
+      },
+      {
+        path: "/home/blog",
+        element: <Blog />,
+      },
+      {
+        path: "/home/profile",
+        element: <Profile />,
+      },
+    ],
+  },
+  {
+    path: "/new-story",
+    element: <TextEditor />,
   },
 ]);
 
