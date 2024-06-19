@@ -4,8 +4,11 @@ import { SigninInput } from "@mukulkathait/medium-common";
 import React, { useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/authSlice";
 
 export const SigninComponent = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [signinInputs, setSigninInputs] = useState<SigninInput>({
     email: "",
@@ -20,6 +23,7 @@ export const SigninComponent = () => {
       );
       console.log("Response: ", response);
       if (response.data.success) {
+        dispatch(login(response.data.accessToken));
         navigate("/home");
       }
     } catch (error) {

@@ -1,9 +1,8 @@
-import { Prisma, PrismaClient } from "@prisma/client/edge";
+import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Context, Hono, Next } from "hono";
 import { verify } from "hono/jwt";
 import type { JwtVariables } from "hono/jwt";
-import { v2 as cloudinary } from "cloudinary";
 import {
   createPostSchema,
   updatePostSchema,
@@ -14,7 +13,7 @@ type Variables = JwtVariables;
 const app = new Hono<{
   Bindings: {
     DATABASE_URL: string;
-    JWT_SECRET: string;
+    ACCESS_TOKEN_SECRET: string;
   };
   Variables: Variables;
 }>();
@@ -95,14 +94,14 @@ Best for my specific usecase:
 const authMiddleware = async (c: Context, next: Next) => {
   const jwt = c.req.header("Authorization");
   if (!jwt) {
-    c.status(401);
+    c.status(403);
     return c.json({ error: "unauthorized" });
   }
   const token = jwt.split(" ")[1];
   try {
-    const payload = await verify(token, c.env.JWT_SECRET);
+    const payload = await verify(token, c.env.ACCESS_TOKEN_SECRET);
     if (!payload || !payload.id) {
-      c.status(401);
+      c.status(403);
       return c.json({ error: "unauthorized" });
     }
     c.set("jwtPayload", payload);

@@ -1,12 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../Input";
 import { SignupInput } from "@mukulkathait/medium-common";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/authSlice";
 
 export const SignupComponent = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [signupInputs, setSignupInputs] = useState<SignupInput>({
     name: "",
     email: "",
@@ -21,6 +25,7 @@ export const SignupComponent = () => {
       );
       console.log("Response: ", response);
       if (response.data.success) {
+        dispatch(login(response.data.accessToken));
         navigate("/home");
       }
     } catch (error) {

@@ -1,4 +1,3 @@
-import { Appbar } from "../components/Homepage/Appbar";
 import { BlogPeak } from "../components/Homepage/BlogPeak";
 import { StaffPick } from "../components/Homepage/StaffPick";
 import { WhoToFollow } from "../components/Homepage/WhoToFollow";
@@ -8,8 +7,8 @@ import Bookmark from "../assets/Bookmark.svg";
 export const Homepage = () => {
   return (
     <div>
-      <div className="flex mx-36 gap-16">
-        <div className="w-2/3 flex flex-col gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 mx-8 sm:mx-16 md:mx-28 lg:mx-32 gap-16 ">
+        <div className="lg:col-span-2 flex flex-col gap-8">
           <BlogPeak
             username="Mukul Kathait"
             userInfo="Senior Backend Developer in Google"
@@ -99,7 +98,7 @@ export const Homepage = () => {
             commentsCount={56}
           />
         </div>
-        <div className="w-1/3 border-l pl-6">
+        <div className="hidden lg:block lg:col-span-1 border-l pl-6">
           <div className="flex flex-col gap-2">
             <div className="text-gray-700 font-semibold mt-6 mb-2">
               Staff Picks

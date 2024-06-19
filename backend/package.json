@@ -5,17 +5,19 @@
   },
   "dependencies": {
     "@mukulkathait/medium-common": "^1.0.0",
-    "@prisma/client": "^5.15.0",
+    "@prisma/client": "^5.15.1",
     "@prisma/extension-accelerate": "^1.1.0",
+    "bcrypt": "^5.1.1",
     "cloudinary": "^2.2.0",
     "hono": "^4.4.2",
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",
+    "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.14.2",
-    "prisma": "^5.15.0",
+    "prisma": "^5.15.1",
     "wrangler": "^3.57.2"
   }
 }

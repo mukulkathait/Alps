@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { EditProfileInput } from "@mukulkathait/medium-common";
 
 export const EditProfile = () => {
-  const [name, setName] = useState<String>("");
-  const [bio, setBio] = useState<String>("");
+  const [updatedProfile, setUpdatedProfile] = useState<EditProfileInput>({
+    name: "",
+    bio: "",
+    profilePic: "",
+  });
   const [file, setFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string>(" ");
 
   useEffect(() => {
     if (file) {
@@ -81,22 +84,22 @@ export const EditProfile = () => {
             <input
               type="text"
               className={
-                name.length > 50
+                updatedProfile.name.length > 50
                   ? "border border-red-500 focus:border-red-500 w-full bg-gray-200 rounded-md h-10 px-2"
                   : "active:border-green-500 w-full bg-gray-200 rounded-md h-10 px-2"
               }
               onChange={(e) => {
-                setName(e.target.value);
+                setUpdatedProfile({ ...updatedProfile, name: e.target.value });
               }}
             />
             <div className="flex justify-between">
               <div className="text-sm text-red-500">
-                {name.length > 50
+                {updatedProfile.name.length > 50
                   ? "Name may only contain a maximum of 50 characters."
                   : ""}
               </div>
               <div className="text-gray-600 self-end text-sm">
-                {name.length}/50
+                {updatedProfile.name.length}/50
               </div>
             </div>
           </div>
@@ -108,17 +111,21 @@ export const EditProfile = () => {
               id="bio"
               className="w-full bg-gray-200 rounded-md min-h-24 max-h-fit p-2"
               onChange={(e) => {
-                setBio(e.target.value);
+                setUpdatedProfile({ ...updatedProfile, bio: e.target.value });
               }}
             />
             <div className="flex justify-between">
               <div className="text-sm text-red-500">
-                {bio.length > 160
+                {updatedProfile.bio != undefined &&
+                updatedProfile.bio.length > 160
                   ? "Bio may only contain a maximum of 160 characters."
                   : ""}
               </div>
               <div className="text-gray-600 self-end text-sm">
-                {bio.length}/160
+                {updatedProfile.bio != undefined
+                  ? updatedProfile.bio.length
+                  : 0}
+                /160
               </div>
             </div>
           </div>
@@ -134,10 +141,10 @@ export const EditProfile = () => {
             type="submit"
             /* className="cursor-not-allowed border-green-500 border py-2 px-4 bg-green-500 rounded-3xl text-white font-semibold" */
             className={
-              name.length > 50 ||
-              name.length == 0 ||
-              bio.length > 160 ||
-              bio.length == 0
+              updatedProfile.name.length > 50 ||
+              updatedProfile.name.length == 0 ||
+              (updatedProfile.bio != undefined &&
+                updatedProfile.bio.length > 160)
                 ? "cursor-not-allowed border-green-200 border py-2 px-4 bg-green-200 rounded-3xl text-white font-semibold"
                 : "border-green-500 border py-2 px-4 bg-green-500 rounded-3xl text-white font-semibold"
             }
