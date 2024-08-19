@@ -10,7 +10,7 @@ export const WhoToFollow = ({
   userImage,
 }: WhoToFollowType) => {
   return (
-    <div className="flex justify-between p-2">
+    <div className="flex justify-between p-2 rounded-md hover:shadow-gray-500 hover:shadow-md">
       <div className="flex">
         <div className="mt-1 w-7 h-7 rounded-full text-white bg-slate-600 grid place-content-center">
           {username[0]}
@@ -21,7 +21,7 @@ export const WhoToFollow = ({
         </div>
       </div>
       <div className="grid place-content-center">
-        <button className="w-fit h-fit border border-black rounded-3xl px-4 py-1">
+        <button className="w-fit h-fit border border-black rounded-3xl px-4 py-1 hover:bg-green-400">
           Follow
         </button>
       </div>

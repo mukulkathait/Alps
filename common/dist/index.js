@@ -21,11 +21,13 @@ exports.editProfileSchema = zod_1.z.object({
 exports.createPostSchema = zod_1.z.object({
     title: zod_1.z.string(),
     content: zod_1.z.string(),
-    published: zod_1.z.boolean().optional(),
+    blogImage: zod_1.z.string(),
+    published: zod_1.z.boolean(),
 });
 exports.updatePostSchema = zod_1.z.object({
     title: zod_1.z.string().optional(),
     content: zod_1.z.string().optional(),
-    published: zod_1.z.boolean().optional(),
+    blogImage: zod_1.z.string().optional(),
+    published: zod_1.z.boolean(),
     id: zod_1.z.string(),
 });

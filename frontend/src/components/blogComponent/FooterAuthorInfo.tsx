@@ -1,4 +1,5 @@
 import MailLogo from "../../assets/mail.svg";
+import { getModifiedDate } from "../utilities";
 
 interface AuthorInfo {
   username: string;
@@ -20,17 +21,24 @@ export const AuthorInfo = ({
   publishedOn,
   className,
 }: AuthorInfo) => {
+  console.log(userImage);
   return (
     <div className={`flex gap-2 items-center ${className}`}>
       <div className="w-10 h-10 grid place-content-center text-white rounded-full bg-slate-800">
-        {username[0]}
+        {userImage ? (
+          <img src={userImage} alt="" className="w-full h-full rounded-full" />
+        ) : (
+          username[0]
+        )}
       </div>
       <div className="flex flex-col">
         <div className="flex flex-row gap-4">
           <div className="font-semibold">{username}</div>
           <button className="text-green-600">Follow</button>
         </div>
-        <div className="text-sm font-semibold text-gray-500">{publishedOn}</div>
+        <div className="text-sm font-semibold text-gray-500">
+          {publishedOn.split("T")[0]}
+        </div>
       </div>
     </div>
   );
@@ -39,12 +47,17 @@ export const AuthorInfo = ({
 export const FooterAuthorInfo = ({
   username,
   userBio,
+  userImage,
   className,
 }: FooterAuthorInfoType) => {
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
       <div className="w-16 h-16 grid place-content-center text-white rounded-full bg-slate-800">
-        {username[0]}
+        {userImage ? (
+          <img src={userImage} alt="" className="w-full h-full rounded-full" />
+        ) : (
+          username[0]
+        )}
       </div>
       <div className="flex justify-between items-center">
         <div className="text-2xl font-semibold">Written By {username}</div>

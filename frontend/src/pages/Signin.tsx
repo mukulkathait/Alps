@@ -1,7 +1,7 @@
-import { Quote } from "../components/auth/Quote";
-import { SigninComponent } from "../components/auth/SigninComponent";
+import { Quote } from "../components/authComponents/Quote";
+import { SigninComponent } from "../components/authComponents/SigninComponent";
 
-export const Signin = () => {
+const Signin = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2">
       <div>
@@ -13,3 +13,5 @@ export const Signin = () => {
     </div>
   );
 };
+
+export default Signin;

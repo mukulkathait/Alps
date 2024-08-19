@@ -1,143 +1,91 @@
-import { BlogPeak } from "../components/Homepage/BlogPeak";
-import { StaffPick } from "../components/Homepage/StaffPick";
-import { WhoToFollow } from "../components/Homepage/WhoToFollow";
-import Footer from "../components/Footer";
+import { BlogPeak } from "../components/homePageComponent/BlogPeak";
+import { StaffPick } from "../components/homePageComponent/StaffPick";
+import { WhoToFollow } from "../components/homePageComponent/WhoToFollow";
+import Footer from "../components/commonComponent/Footer";
 import Bookmark from "../assets/Bookmark.svg";
+import { useEffect, useState } from "react";
+import axios from "../api/axios";
+import { useNavigate } from "react-router-dom";
+import { getModifiedDate } from "../components/utilities";
 
-export const Homepage = () => {
+const Homepage = () => {
+  const navigate = useNavigate();
+  const [homeBlogs, setHomeBlogs] = useState<any>([]);
+
+  useEffect(() => {
+    const getBlogs = async () => {
+      try {
+        const response = await axios.get("/api/v1/blog");
+        setHomeBlogs(response.data.data);
+        console.log("response.data.data", response.data.data);
+      } catch (error) {}
+    };
+    getBlogs();
+    console.log("homeBlogs", homeBlogs);
+  }, []);
+
   return (
     <div>
       <div className="grid grid-cols-1 lg:grid-cols-3 mx-8 sm:mx-16 md:mx-28 lg:mx-32 gap-16 ">
-        <div className="lg:col-span-2 flex flex-col gap-8">
-          <BlogPeak
-            username="Mukul Kathait"
-            userInfo="Senior Backend Developer in Google"
-            userImage="image"
-            blogTitle="How Does Reading Affect Your Brain"
-            blogContent="Let my explain the WHY part"
-            blogImage="Image"
-            publishedOn="May 13, 2023"
-            likeCount={123}
-            commentsCount={56}
-          />
-          <BlogPeak
-            username="Mukul Kathait"
-            userInfo="Senior Backend Developer in Google"
-            userImage="image"
-            blogTitle="How Does Reading Affect Your Brain Quick Brown Fox Jumps The Quick Brown Fox Jumps Over The Lazy Dog End"
-            blogContent="Let my explain the WHY part quick brown fox jumps over the lazy dog. I mean the quick brown fox jumps over the lazy dog."
-            blogImage="Image"
-            publishedOn="May 13, 2023"
-            likeCount={123}
-            commentsCount={56}
-          />
-          <BlogPeak
-            username="Mukul Kathait"
-            userInfo="Senior Backend Developer in Google"
-            userImage="image"
-            blogTitle="How Does Reading Affect Your Brain"
-            blogContent="Let my explain the WHY part"
-            blogImage="Image"
-            publishedOn="May 13, 2023"
-            likeCount={123}
-            commentsCount={56}
-          />
-          <BlogPeak
-            username="Mukul Kathait"
-            userInfo="Senior Backend Developer in Google"
-            userImage="image"
-            blogTitle="How Does Reading Affect Your Brain"
-            blogContent="Let my explain the WHY part"
-            blogImage="Image"
-            publishedOn="May 13, 2023"
-            likeCount={123}
-            commentsCount={56}
-          />
-          <BlogPeak
-            username="Mukul Kathait"
-            userInfo="Senior Backend Developer in Google"
-            userImage="image"
-            blogTitle="How Does Reading Affect Your Brain"
-            blogContent="Let my explain the WHY part"
-            blogImage="Image"
-            publishedOn="May 13, 2023"
-            likeCount={123}
-            commentsCount={56}
-          />
-          <BlogPeak
-            username="Mukul Kathait"
-            userInfo="Senior Backend Developer in Google"
-            userImage="image"
-            blogTitle="How Does Reading Affect Your Brain"
-            blogContent="Let my explain the WHY part"
-            blogImage="Image"
-            publishedOn="May 13, 2023"
-            likeCount={123}
-            commentsCount={56}
-          />
-          <BlogPeak
-            username="Mukul Kathait"
-            userInfo="Senior Backend Developer in Google"
-            userImage="image"
-            blogTitle="How Does Reading Affect Your Brain"
-            blogContent="Let my explain the WHY part"
-            blogImage="Image"
-            publishedOn="May 13, 2023"
-            likeCount={123}
-            commentsCount={56}
-          />
-          <BlogPeak
-            username="Mukul Kathait"
-            userInfo="Senior Backend Developer in Google"
-            userImage="image"
-            blogTitle="How Does Reading Affect Your Brain"
-            blogContent="Let my explain the WHY part"
-            blogImage="Image"
-            publishedOn="May 13, 2023"
-            likeCount={123}
-            commentsCount={56}
-          />
+        <div className="mt-8 lg:col-span-2 flex flex-col gap-8">
+          {homeBlogs.map((blog: any) => (
+            <BlogPeak
+              key={blog.id}
+              username={blog.author.name}
+              userBio={blog.author.bio}
+              userProfilePic={blog.author.profilePic}
+              blogTitle={blog.title}
+              blogContent={blog.content}
+              blogCoverImage={blog.blogImage}
+              publishedOn={getModifiedDate(blog.createdAt)}
+              likeCount={23}
+              commentsCount={50}
+              onclick={() => {
+                navigate(`/home/${blog.id}`);
+              }}
+            />
+          ))}
         </div>
         <div className="hidden lg:block lg:col-span-1 border-l pl-6">
           <div className="flex flex-col gap-2">
-            <div className="text-gray-700 font-semibold mt-6 mb-2">
+            <div className="text-gray-900 font-semibold mt-6 mb-2 text-lg ">
               Staff Picks
             </div>
             <StaffPick
-              username="Mukul Kathait"
+              username="John Doe"
               userInfo="Senior Backend Developer in Google"
               userImage="Image"
               blogTitle="What 10 Years at Uber, Meta & Netflix Taught Me About Data Analytics?"
             />
             <StaffPick
-              username="Nikita Negi"
+              username="Maximo Bulgaria"
               userInfo="Senior Advocate at Delhi High Court"
               userImage="Image"
               blogTitle="How Big Lawyer Interpret Law to Favour Those in Power."
             />
             <StaffPick
-              username="Amitabh Bacchan"
+              username="Shaun Evans"
               userInfo="Insurance Agent at LIC"
               userImage="Image"
               blogTitle="What about the whataboutism of the Elite Polititians with Criminal Records?"
             />
           </div>
           <div>
-            <div className="text-gray-700 font-semibold mt-6 mb-2">
+            <div className="text-gray-900 font-semibold mt-6 mb-2 text-lg">
               Who To Follow
             </div>
             <WhoToFollow
-              username="Mukul Kathait"
+              username="John Doe"
               userInfo="Senior Backend Developer at Google"
               userImage="Image"
             />
             <WhoToFollow
-              username="Nikita Negi"
+              username="Maximo Bulgaria"
               userInfo="Senior Advocate at High Court"
               userImage="Image"
             />
             <WhoToFollow
-              username="Amitabh Bacchan"
+              username="Shaun Evans"
               userInfo="Insurance Agent at LIC"
               userImage="Image"
             />
@@ -163,3 +111,5 @@ export const Homepage = () => {
     </div>
   );
 };
+
+export default Homepage;

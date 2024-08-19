@@ -1,34 +1,60 @@
 interface BlogPeakInputs {
   username: string;
-  userInfo: string;
-  userImage: string;
+  userBio: string;
+  userProfilePic: string;
   blogTitle: string;
   blogContent: string;
   publishedOn: string;
   likeCount: number;
   commentsCount: number;
-  blogImage: string;
+  blogCoverImage: string;
+  onclick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 export const BlogPeak = ({
   username,
-  userInfo,
-  userImage,
+  userBio,
+  userProfilePic,
   blogTitle,
   blogContent,
-  blogImage,
+  blogCoverImage,
   publishedOn,
   likeCount,
   commentsCount,
+  onclick,
 }: BlogPeakInputs) => {
+  const extractRawData = (data: string) => {
+    let rawData = "";
+    for (let i = 0; i < data.length; i++) {
+      if (data[i] == "<") {
+        let j = i + 1;
+        while (data[j++] != ">") {}
+        i = j;
+      }
+      rawData += data[i];
+      if (rawData.length == 120) {
+        return rawData;
+      }
+    }
+  };
+
+  console.log("BLOGPEEK : ", blogCoverImage);
+
   return (
-    <div className="flex flex-col m-2 border-b pb-4">
+    <div
+      className="flex flex-col m-2 border-b pb-4 bg-blue-50 p-4 rounded-md hover:shadow-gray-500 hover:shadow-md"
+      onClick={onclick}
+    >
       <div className="flex items-center gap-2">
         <div className="w-8 h-8 rounded-full text-white bg-slate-600 grid place-content-center">
-          {username[0]}
+          {userProfilePic ? (
+            <img src={userProfilePic} className="w-full h-full rounded-full" />
+          ) : (
+            username[0]
+          )}
         </div>
-        <div className="text-black text-sm">
-          {username}, {userInfo}
+        <div className="text-gray-800 text-sm font-semibold">
+          {username}, {userBio}
         </div>
       </div>
       <div className="grid grid-cols-3 gap-8">
@@ -39,7 +65,7 @@ export const BlogPeak = ({
               : blogTitle.slice(0, 100) + "..."}
           </div>
           <div className="text-md text-slate-600">
-            {blogContent.slice(0, 120) + "..."}
+            {extractRawData(blogContent)}
           </div>
           <div className="flex justify-between mt-4">
             <div className="flex gap-2 items-center">
@@ -134,7 +160,14 @@ export const BlogPeak = ({
           </div>
         </div>
         <div className="col-span-1 justify-self-end self-start rounded-sm bg-gray-600 min-w-24 w-44 min-h-16 h-28">
-          Image
+          {blogCoverImage ? (
+            <img
+              src={blogCoverImage}
+              className="min-w-24 w-44 min-h-16 h-28 rounded-sm"
+            />
+          ) : (
+            "Imajhguyge"
+          )}
         </div>
       </div>
     </div>

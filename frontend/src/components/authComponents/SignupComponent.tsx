@@ -1,14 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Input } from "../Input";
+import { Input } from "../commonComponent/Input";
 import { SignupInput } from "@mukulkathait/medium-common";
-import React, { ChangeEvent, useState } from "react";
-import axios from "axios";
-import { BACKEND_URL } from "../../config";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import axios from "../../api/axios";
+import { useAppDispatch } from "../../store/stateHook";
 import { login } from "../../store/authSlice";
+import conf from "../../config";
 
 export const SignupComponent = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [signupInputs, setSignupInputs] = useState<SignupInput>({
@@ -19,13 +19,15 @@ export const SignupComponent = () => {
 
   async function sendSignupRequest() {
     try {
-      const response = await axios.post(
-        `${BACKEND_URL}/api/v1/user/signup`,
-        signupInputs
-      );
+      const response = await axios.post(`/api/v1/user/signup`, signupInputs);
       console.log("Response: ", response);
       if (response.data.success) {
-        dispatch(login(response.data.accessToken));
+        dispatch(
+          login({
+            token: response.data.accessToken,
+            userData: response.data.userResponse,
+          })
+        );
         navigate("/home");
       }
     } catch (error) {

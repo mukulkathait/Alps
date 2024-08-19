@@ -5,7 +5,12 @@ import blog from "./routes/blog.route";
 
 const app = new Hono();
 
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");

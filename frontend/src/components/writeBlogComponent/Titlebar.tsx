@@ -1,7 +1,8 @@
 import { useState } from "react";
 import logo from "../../assets/medium.png";
-import { ProfileOptions } from "../ProfileOptions";
+import { ProfileOptions } from "../commonComponent/ProfileOptions";
 import NotificationLogo from "../../assets/notification.svg";
+import { UserImage } from "../commonComponent/UserImage";
 
 export const Titlebar = () => {
   const [profileOptions, setProfileOptions] = useState(false);
@@ -12,9 +13,9 @@ export const Titlebar = () => {
         <img src={logo} alt="Logo" />
       </div>
       <div className="flex gap-4 items-center">
-        <button className="bg-green-500 px-4 py-1 text-white font-normal rounded-3xl">
+        {/* <button className="bg-green-500 px-4 py-1 text-white font-normal rounded-3xl">
           Publish
-        </button>
+        </button> */}
         <img
           src={NotificationLogo}
           className="w-7 h-7 cursor-pointer"
@@ -26,7 +27,7 @@ export const Titlebar = () => {
             setProfileOptions((prev) => !prev);
           }}
         >
-          P
+          <UserImage className="w-7 h-7 rounded-full" />
         </div>
         {profileOptions && (
           <div className="fixed top-12 right-20">

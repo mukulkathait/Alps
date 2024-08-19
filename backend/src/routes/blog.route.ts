@@ -114,6 +114,7 @@ const authMiddleware = async (c: Context, next: Next) => {
 
 //Routes
 
+//create new blog post
 app.post("/", authMiddleware, async (c) => {
   const prisma = getPrismaClient(c);
   const payload = c.get("jwtPayload");
@@ -133,6 +134,8 @@ app.post("/", authMiddleware, async (c) => {
       data: {
         title: parsedBody.data.title,
         content: parsedBody.data.content,
+        blogImage: parsedBody.data.blogImage,
+        published: parsedBody.data.published,
         authorId: payload.id,
       },
     });
@@ -149,6 +152,7 @@ app.post("/", authMiddleware, async (c) => {
   }
 });
 
+//edit a blog post
 app.put("/", authMiddleware, async (c) => {
   const prisma = getPrismaClient(c);
   const payload = c.get("jwtPayload");
@@ -171,6 +175,7 @@ app.put("/", authMiddleware, async (c) => {
       data: {
         title: parsedBody.data.title,
         content: parsedBody.data.content,
+        blogImage: parsedBody.data.blogImage,
         published: parsedBody.data.published,
       },
     });
@@ -186,12 +191,30 @@ app.put("/", authMiddleware, async (c) => {
   }
 });
 
-app.get("/:blogId", async (c) => {
+//get a blog post
+app.get("/blogId/:blogId", async (c) => {
   const prisma = getPrismaClient(c);
+  console.log("Inside Blog Post : ", c.req.param("blogId"));
   try {
     const post = await prisma.post.findUnique({
       where: {
         id: c.req.param("blogId"),
+      },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        blogImage: true,
+        createdAt: true,
+        updatedAt: true,
+        author: {
+          select: {
+            id: true,
+            name: true,
+            bio: true,
+            profilePic: true,
+          },
+        },
       },
     });
     c.status(200);
@@ -210,10 +233,66 @@ app.get("/:blogId", async (c) => {
   }
 });
 
+//get all blog post from user that's logged-in
+app.get("/allBlogs", authMiddleware, async (c) => {
+  const prisma = getPrismaClient(c);
+  const payload = c.get("jwtPayload");
+
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        authorId: payload.id,
+      },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        blogImage: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+    c.status(200);
+    return c.json({
+      success: true,
+      message: "All post by user fetched successfully",
+      data: posts,
+    });
+  } catch (error) {
+    console.log(error);
+    c.status(400);
+    return c.json({
+      success: false,
+      message: "Error during getting user's all posts",
+    });
+  }
+});
+
+//get all blog post along with user info
 app.get("/", async (c) => {
   const prisma = getPrismaClient(c);
   try {
-    const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany({
+      where: {
+        published: true,
+      },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        blogImage: true,
+        createdAt: true,
+        updatedAt: true,
+        author: {
+          select: {
+            id: true,
+            name: true,
+            bio: true,
+            profilePic: true,
+          },
+        },
+      },
+    });
     c.status(200);
     return c.json({
       success: true,

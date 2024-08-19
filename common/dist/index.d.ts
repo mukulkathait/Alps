@@ -38,31 +38,37 @@ export declare const editProfileSchema: z.ZodObject<{
 export declare const createPostSchema: z.ZodObject<{
     title: z.ZodString;
     content: z.ZodString;
-    published: z.ZodOptional<z.ZodBoolean>;
+    blogImage: z.ZodString;
+    published: z.ZodBoolean;
 }, "strip", z.ZodTypeAny, {
     title: string;
     content: string;
-    published?: boolean | undefined;
+    blogImage: string;
+    published: boolean;
 }, {
     title: string;
     content: string;
-    published?: boolean | undefined;
+    blogImage: string;
+    published: boolean;
 }>;
 export declare const updatePostSchema: z.ZodObject<{
     title: z.ZodOptional<z.ZodString>;
     content: z.ZodOptional<z.ZodString>;
-    published: z.ZodOptional<z.ZodBoolean>;
+    blogImage: z.ZodOptional<z.ZodString>;
+    published: z.ZodBoolean;
     id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
+    published: boolean;
     id: string;
     title?: string | undefined;
     content?: string | undefined;
-    published?: boolean | undefined;
+    blogImage?: string | undefined;
 }, {
+    published: boolean;
     id: string;
     title?: string | undefined;
     content?: string | undefined;
-    published?: boolean | undefined;
+    blogImage?: string | undefined;
 }>;
 export type SignupInput = z.infer<typeof signupSchema>;
 export type SigninInput = z.infer<typeof signinSchema>;

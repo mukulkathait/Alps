@@ -22,13 +22,15 @@ export const editProfileSchema = z.object({
 export const createPostSchema = z.object({
   title: z.string(),
   content: z.string(),
-  published: z.boolean().optional(),
+  blogImage: z.string(),
+  published: z.boolean(),
 });
 
 export const updatePostSchema = z.object({
   title: z.string().optional(),
   content: z.string().optional(),
-  published: z.boolean().optional(),
+  blogImage: z.string().optional(),
+  published: z.boolean(),
   id: z.string(),
 });
 

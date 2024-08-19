@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import logo from "../../assets/medium.png";
-import { ProfileOptions } from "../ProfileOptions";
+import { ProfileOptions } from "../commonComponent/ProfileOptions";
 import { Link } from "react-router-dom";
 import writeIcon from "../../assets/write.svg";
 import notificationIcon from "../../assets/notification.svg";
+import { UserImage } from "../commonComponent/UserImage";
 
 export const Appbar = () => {
   const [profileOptions, setProfileOptions] = useState(false);
@@ -69,7 +70,7 @@ export const Appbar = () => {
           }}
           className="cursor-pointer w-8 h-8 rounded-full bg-slate-600 text-white grid place-content-center"
         >
-          U
+          <UserImage className="w-8 h-8 rounded-full" />
         </div>
       </div>
       {profileOptions && (
