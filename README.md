@@ -8,7 +8,7 @@ This is a **Medium Clone** built with modern web technologies. The project aims 
 
 ## 🎨 Live Demo
 
-Check out the live version of this project [here](https://your-live-demo-url.com).
+Check out the live version of this project [here]([https://your-live-demo-url.com](https://medium-six-puce.vercel.app/)).
 
 
 ## ✨ Features
