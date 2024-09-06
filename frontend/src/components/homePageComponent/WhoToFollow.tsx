@@ -7,8 +7,8 @@ interface WhoToFollowType {
 export const WhoToFollow = ({
   username,
   userInfo,
-  userImage,
-}: WhoToFollowType) => {
+}: // userImage,
+WhoToFollowType) => {
   return (
     <div className="flex justify-between p-2 rounded-md hover:shadow-gray-500 hover:shadow-md">
       <div className="flex">

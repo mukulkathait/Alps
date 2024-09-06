@@ -8,7 +8,7 @@ interface StaffPickType {
 export const StaffPick = ({
   username,
   userInfo,
-  userImage,
+  // userImage,
   blogTitle,
 }: StaffPickType) => {
   return (
