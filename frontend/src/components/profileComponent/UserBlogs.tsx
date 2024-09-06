@@ -1,6 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import EditBlog from "../../pages/EditBlog";
+import { useNavigate } from "react-router-dom";
 
 interface UserBlogsTypes {
   blogId: string;
@@ -15,17 +14,17 @@ interface UserBlogsTypes {
 }
 
 export const UserBlogs = ({
-  blogId,
+  // blogId,
   blogTitle,
   blogContent,
   blogCoverImage,
-  publishedOn,
+  // publishedOn,
   published,
-  likeCount,
-  commentsCount,
+  // likeCount,
+  // commentsCount,
   onClick,
 }: UserBlogsTypes) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const extractRawData = (data: string) => {
     let rawData = "";

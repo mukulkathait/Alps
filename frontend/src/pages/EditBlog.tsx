@@ -1,12 +1,12 @@
 import { Editor } from "@tinymce/tinymce-react";
 import { Editor as TinyMCEEditor } from "tinymce";
-import conf, { TINYMCE_API_KEY } from "../config";
+import { TINYMCE_API_KEY } from "../config";
 import { useEffect, useRef, useState } from "react";
 import { Titlebar } from "../components/writeBlogComponent/Titlebar";
-import { CreateBlogInput, UpdateBlogInput } from "@mukulkathait/medium-common";
-import axios from "axios";
+// import { CreateBlogInput, UpdateBlogInput } from "@mukulkathait/medium-common";
+// import axios from "axios";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useAppSelector } from "../store/stateHook";
+// import { useAppSelector } from "../store/stateHook";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { uploadBlogCoverImage } from "../utilities/cloudinary";
 
@@ -50,6 +50,9 @@ const EditBlog = () => {
   useEffect(() => {
     const getBlog = async () => {
       try {
+        if (loader) {
+          //just to fix deployment bug. remove it and use it inside return.
+        }
         const response = await axiosPrivate.get(
           `/api/v1/blog/blogId/${blogId}`
         );
@@ -117,6 +120,7 @@ const EditBlog = () => {
   const editorRef = useRef<TinyMCEEditor | null>(null);
 
   return (
+    //insert loader here.
     <>
       <Titlebar />
       <div className="w-2/3 mx-auto py-4 flex flex-col items-center gap-4">

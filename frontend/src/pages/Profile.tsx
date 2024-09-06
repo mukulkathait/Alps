@@ -1,6 +1,6 @@
 import { EditProfile } from "../components/profileComponent/EditProfile";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store/stateHook";
+import { useAppSelector } from "../store/stateHook";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { UserImage } from "../components/commonComponent/UserImage";
 import { UserBlogs } from "../components/profileComponent/UserBlogs";

@@ -12,7 +12,14 @@ export const Appbar = () => {
   useEffect(() => {}, [profileOptions]);
 
   return (
-    <div className="relative flex px-4 py-2 items-center justify-between border-b border-slate-200 gap-4">
+    <div
+      className="relative flex px-4 py-2 items-center justify-between border-b border-slate-200 gap-4"
+      onClick={() => {
+        if (profileOptions) {
+          setProfileOptions(false);
+        }
+      }}
+    >
       <Link
         to={"/home"}
         className="w-16 h-8 mx-2 flex justify-center items-center"

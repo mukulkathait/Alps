@@ -1,5 +1,5 @@
 import MailLogo from "../../assets/mail.svg";
-import { getModifiedDate } from "../utilities";
+// import { getModifiedDate } from "../utilities";
 
 interface AuthorInfo {
   username: string;

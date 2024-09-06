@@ -6,14 +6,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { uploadProfilePic } from "../../utilities/cloudinary";
 import { useAppDispatch, useAppSelector } from "../../store/stateHook";
 import { login } from "../../store/authSlice";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+// import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const client = axios.create({
   baseURL: conf.backendUrl,
 });
 
 export const EditProfile = () => {
-  const axiosPrivate = useAxiosPrivate();
+  // const axiosPrivate = useAxiosPrivate();
   const token = useAppSelector((state) => state.auth.token);
   const userData = useAppSelector((state) => state.auth.userData);
   const [updatedProfile, setUpdatedProfile] = useState<EditProfileInput>({

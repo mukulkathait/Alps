@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
-const AuthProvider = () => {
-  const [token, setToken] = useState<String | null>();
+// const AuthProvider = () => {
+//   const [token, setToken] = useState<String | null>();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-      } catch (error) {
-        setToken(null);
-      }
-    };
-  }, []);
-};
+//   useEffect(() => {
+//     const fetchUser = async () => {
+//       try {
+//         if (token) {
+//         }
+//       } catch (error) {
+//         setToken(null);
+//       }
+//     };
+//   }, []);
+// };
+
+// export default AuthProvider;
