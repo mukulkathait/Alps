@@ -6,7 +6,7 @@ import blog from "./routes/blog.route";
 const app = new Hono();
 
 const corsOptions = {
-  origin: "https://medium-six-puce.vercel.app/",
+  origin: "https://medium-six-puce.vercel.app",
   credentials: true,
 };
 
